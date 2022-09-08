@@ -39,7 +39,7 @@ COPY composer.json ./
 RUN composer install --no-scripts
 
 COPY .env.example .env
-RUN php artisan key:generate
+# RUN php artisan key:generate
 
 # Setup storage & permissions
 RUN chmod -R 777 ./storage/ &&\
@@ -49,5 +49,5 @@ RUN chmod -R 777 ./storage/ &&\
     semanage fcontext -a -t httpd_sys_rw_content_t './bootstrap/cache(/.*)?' || true &&\
     semanage fcontext -a -t httpd_sys_rw_content_t './storage(/.*)?' || true &&\
     restorecon -Rv '.' || true
-RUN php artisan storage:link || true
+# RUN php artisan storage:link || true
 
