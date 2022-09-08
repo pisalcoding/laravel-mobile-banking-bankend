@@ -6,18 +6,29 @@ ARG uid
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
+    build-essential \
     git \
     curl \
     libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libmcrypt-dev \
+    libgd-dev \
+    jpegoptim optipng pngquant gifsicle \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip
+    sudo \
+    unzip \
+    npm \
+    nodejs
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Get latest Composer
@@ -43,9 +54,9 @@ RUN php artisan key:generate || true
 
 # Setup storage & permissions
 RUN chmod -R 777 ./storage/ &&\
-    chmod -R 775 . &&\
-    chown -R www-data:www-data . &&\
-    chmod -R 777 ./storage/ &&\
+    chmod -R 775 . && || true\
+    chown -R www-data:www-data . || true &&\
+    chmod -R 777 ./storage/ || true &&\
     semanage fcontext -a -t httpd_sys_rw_content_t './bootstrap/cache(/.*)?' || true &&\
     semanage fcontext -a -t httpd_sys_rw_content_t './storage(/.*)?' || true &&\
     restorecon -Rv '.' || true
