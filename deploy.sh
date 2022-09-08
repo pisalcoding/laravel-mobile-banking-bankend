@@ -1,5 +1,5 @@
-# git stash
-# git checkout dev
+git stash
+git checkout master
 git pull
 cp .env.example .env
 docker compose down
