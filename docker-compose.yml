@@ -28,7 +28,7 @@ services:
             MYSQL_DATABASE: ${DB_DATABASE}
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
             MYSQL_PASSWORD: ${DB_PASSWORD}
-            MYSQL_USER: ${DB_USERNAME}
+            # MYSQL_USER: ${DB_USERNAME}
             SERVICE_TAGS: dev
         volumes:
             - ./docker-compose/mysql:/docker-entrypoint-initdb.d
