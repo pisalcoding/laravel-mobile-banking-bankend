@@ -31,7 +31,7 @@ services:
             # MYSQL_USER: ${DB_USERNAME}
             SERVICE_TAGS: dev
         volumes:
-            - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+            - ./docker-compose/cloud/mysql:/docker-entrypoint-initdb.d
             - mysql-data:/var/lib/mysql
         networks:
             - mobilebanking
@@ -45,9 +45,9 @@ services:
             - 443:443
         volumes:
             - ./:/var/www
-            - ./docker-compose/nginx:/etc/nginx/conf.d/
-            # - ./certbot/conf:/etc/letsencrypt
-            # - ./certbot/www:/var/www/certbot
+            - ./docker-compose/cloud/nginx/http:/etc/nginx/conf.d/
+            # - ./docker-compose/cloud/certbot/conf:/etc/letsencrypt
+            # - ./docker-compose/cloud/certbot/www:/var/www/certbot
         networks:
             - mobilebanking
 
@@ -63,8 +63,8 @@ services:
     #     image: certbot/certbot
     #     container_name: certbot
     #     volumes:
-    #         - ./certbot/conf:/etc/letsencrypt
-    #         - ./certbot/www:/var/www/certbot
+    #         - ./docker-compose/cloud/certbot/conf:/etc/letsencrypt
+    #         - ./docker-compose/cloud/certbot/www:/var/www/certbot
     #     command: certonly -v --webroot -w /var/www/certbot --non-interactive --force-renewal --email admin@admin.com -d mb.pisal.me -d --agree-tos
 networks:
     mobilebanking:

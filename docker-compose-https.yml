@@ -1,0 +1,75 @@
+version: "3.7"
+services:
+    app:
+        build:
+            args:
+                user: mbuser
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        depends_on:
+            - db
+            - nginx
+        image: mobilebanking
+        container_name: mobilebanking-app
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        networks:
+            - mobilebanking
+    db:
+        image: mysql
+        container_name: mobilebanking-db
+        restart: unless-stopped
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            # MYSQL_USER: ${DB_USERNAME}
+            SERVICE_TAGS: dev
+        volumes:
+            - ./docker-compose/cloud/mysql:/docker-entrypoint-initdb.d
+            - mysql-data:/var/lib/mysql
+        networks:
+            - mobilebanking
+
+    nginx:
+        image: nginx:alpine
+        container_name: mobilebanking-nginx
+        restart: unless-stopped
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - ./:/var/www
+            - ./docker-compose/cloud/nginx/https:/etc/nginx/conf.d/
+            - ./docker-compose/cloud/certbot/conf:/etc/letsencrypt
+            - ./docker-compose/cloud/certbot/www:/var/www/certbot
+        networks:
+            - mobilebanking
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+        - 8080:8080
+
+    ## Uncomment the certbot config to enable SSL
+    ## Also replace the -d <domain> with your own domain
+    certbot:
+        image: certbot/certbot
+        container_name: certbot
+        volumes:
+            - ./docker-compose/cloud/certbot/conf:/etc/letsencrypt
+            - ./docker-compose/cloud/certbot/www:/var/www/certbot
+        command: certonly -v --webroot -w /var/www/certbot --non-interactive --force-renewal --email admin@admin.com -d mb.pisal.me -d --agree-tos
+networks:
+    mobilebanking:
+        driver: bridge
+
+volumes:
+    app_volume:
+    mysql-data:

@@ -1,0 +1,63 @@
+version: "3.7"
+services:
+    app:
+        build:
+            args:
+                user: mbuser
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        depends_on:
+            - db
+            - nginx
+        image: mobilebanking
+        container_name: mobilebanking-app
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        networks:
+            - mobilebanking
+    db:
+        image: mysql
+        container_name: mobilebanking-db
+        restart: unless-stopped
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            # MYSQL_USER: ${DB_USERNAME}
+            SERVICE_TAGS: dev
+        volumes:
+            - ./docker-compose/local/mysql:/docker-entrypoint-initdb.d
+            - mysql-data:/var/lib/mysql
+        networks:
+            - mobilebanking
+
+    nginx:
+        image: nginx:alpine
+        container_name: mobilebanking-nginx
+        restart: unless-stopped
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - ./:/var/www
+            - ./docker-compose/local/nginx:/etc/nginx/conf.d/
+        networks:
+            - mobilebanking
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+        - 8080:8080
+networks:
+    mobilebanking:
+        driver: bridge
+
+volumes:
+    app_volume:
+    mysql-data:

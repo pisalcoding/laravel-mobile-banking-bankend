@@ -54,7 +54,7 @@ RUN php artisan key:generate || true
 
 # Setup storage & permissions
 RUN chmod -R 777 ./storage/ &&\
-    chmod -R 775 . && || true\
+    chmod -R 775 . || true &&\
     chown -R www-data:www-data . || true &&\
     chmod -R 777 ./storage/ || true &&\
     semanage fcontext -a -t httpd_sys_rw_content_t './bootstrap/cache(/.*)?' || true &&\
