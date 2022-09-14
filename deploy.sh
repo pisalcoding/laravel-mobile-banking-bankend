@@ -1,10 +1,14 @@
+# This is the starting point for deployment
+# Run bash deploy.sh to deploy/update application
+# Feel free to modify the script
+
 git stash
 git checkout master
 git pull
 cp .env.example .env
-docker compose down
+docker compose down app
 docker compose build app
-docker compose up -d
+docker compose up app -d
 docker compose exec app php artisan storage:link || true
 # docker compose exec app rm -rf vendor composer.lock
 # docker compose exec app composer install
