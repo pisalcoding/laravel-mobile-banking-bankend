@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 16, 2022 at 06:13 AM
+-- Generation Time: Sep 16, 2022 at 07:56 AM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.12
 
@@ -274,20 +274,20 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (60, 8, 'title', 'text', 'Title', 1, 1, 1, 1, 1, 1, '{}', 7),
 (61, 8, 'subtitle', 'text', 'Subtitle', 0, 1, 1, 1, 1, 1, '{}', 8),
 (62, 8, 'icon', 'image', 'Icon', 0, 1, 1, 1, 1, 1, '{}', 9),
-(63, 8, 'unavailable_message', 'text', 'Unavailable Message', 0, 1, 1, 1, 1, 1, '{}', 10),
-(64, 8, 'requires_auth', 'checkbox', 'Requires Auth', 1, 1, 1, 1, 1, 1, '{}', 11),
-(65, 8, 'needs_icon_outline', 'checkbox', 'Needs Icon Outline', 1, 1, 1, 1, 1, 1, '{}', 12),
-(66, 8, 'uses_circular_icon', 'checkbox', 'Uses Circular Icon', 1, 1, 1, 1, 1, 1, '{}', 13),
+(64, 8, 'requires_auth', 'checkbox', 'Requires Auth', 1, 1, 1, 1, 0, 1, '{\"checked\":true}', 11),
+(65, 8, 'needs_icon_outline', 'checkbox', 'Needs Icon Outline', 1, 1, 1, 1, 0, 1, '{\"checked\":true}', 12),
+(66, 8, 'uses_circular_icon', 'checkbox', 'Uses Circular Icon', 1, 1, 1, 1, 0, 1, '{\"checked\":true}', 13),
 (67, 8, 'sub_button_text', 'text', 'Sub Button Text', 0, 1, 1, 1, 1, 1, '{}', 14),
-(68, 8, 'highlight_icons', 'multiple_images', 'Highlight Icons', 0, 1, 1, 1, 1, 1, '{}', 15),
-(69, 8, 'enabled', 'checkbox', 'Enabled', 1, 1, 1, 1, 1, 1, '{}', 16),
-(70, 8, 'status', 'checkbox', 'Status', 1, 1, 1, 1, 1, 1, '{}', 17),
+(68, 8, 'highlight_icons', 'multiple_images', 'Highlight Icons', 0, 1, 1, 1, 0, 1, '{}', 15),
+(69, 8, 'enabled', 'checkbox', 'Enabled', 1, 1, 1, 1, 0, 1, '{\"checked\":true}', 16),
+(70, 8, 'status', 'checkbox', 'Status', 1, 1, 1, 1, 0, 1, '{\"checked\":true}', 17),
 (71, 8, 'created_at', 'timestamp', 'Created At', 1, 1, 1, 1, 0, 1, '{}', 18),
 (72, 8, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 19),
 (73, 8, 'version', 'number', 'Version', 1, 1, 1, 0, 0, 1, '{}', 20),
-(74, 8, 'history', 'text', 'History', 0, 1, 1, 1, 1, 1, '{}', 21),
-(75, 8, 'type', 'select_dropdown', 'Type', 1, 1, 1, 1, 1, 1, '{\"default\":\"TRANSFER\",\"options\":{\"TRANSFER\":\"TRANSFER\",\"PAYMENT\":\"PAYMENT\"}}', 4),
-(76, 8, 'mb_transaction_channel_belongsto_mb_transaction_channel_relationship', 'relationship', 'Parent', 0, 1, 1, 1, 1, 1, '{\"model\":\"\\\\App\\\\Models\\\\MbTransactionChannel\",\"table\":\"mb_transaction_channels\",\"type\":\"belongsTo\",\"column\":\"parent_id\",\"key\":\"id\",\"label\":\"title\",\"pivot_table\":\"bank_accounts\",\"pivot\":\"0\",\"taggable\":\"0\"}', 2);
+(74, 8, 'history', 'text', 'History', 0, 1, 1, 1, 0, 1, '{}', 21),
+(75, 8, 'type', 'select_dropdown', 'Type', 1, 1, 1, 1, 1, 1, '{\"default\":\"PAYMENT\",\"options\":{\"TRANSFER\":\"TRANSFER\",\"PAYMENT\":\"PAYMENT\"}}', 4),
+(76, 8, 'mb_transaction_channel_belongsto_mb_transaction_channel_relationship', 'relationship', 'Parent', 0, 1, 1, 1, 1, 1, '{\"model\":\"\\\\App\\\\Models\\\\MbTransactionChannel\",\"table\":\"mb_transaction_channels\",\"type\":\"belongsTo\",\"column\":\"parent_id\",\"key\":\"id\",\"label\":\"title\",\"pivot_table\":\"bank_accounts\",\"pivot\":\"0\",\"taggable\":\"0\"}', 2),
+(77, 8, 'local_drawable_id', 'text', 'Local Drawable Id', 0, 1, 1, 1, 1, 1, '{}', 9);
 
 -- --------------------------------------------------------
 
@@ -324,7 +324,7 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (4, 'categories', 'categories', 'Category', 'Categories', 'voyager-categories', 'TCG\\Voyager\\Models\\Category', NULL, '', '', 1, 0, NULL, '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
 (5, 'posts', 'posts', 'Post', 'Posts', 'voyager-news', 'TCG\\Voyager\\Models\\Post', 'TCG\\Voyager\\Policies\\PostPolicy', '', '', 1, 0, NULL, '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
 (6, 'pages', 'pages', 'Page', 'Pages', 'voyager-file-text', 'TCG\\Voyager\\Models\\Page', NULL, '', '', 1, 0, NULL, '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
-(8, 'mb_transaction_channels', 'mb-transaction-channels', 'MB Transaction Channel', 'MB Transaction Channels', NULL, 'App\\Models\\MbTransactionChannel', NULL, NULL, NULL, 1, 1, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2022-09-14 01:30:31', '2022-09-15 22:03:58');
+(8, 'mb_transaction_channels', 'mb-transaction-channels', 'MB Transaction Channel', 'MB Transaction Channels', 'voyager-shop', 'App\\Models\\MbTransactionChannel', NULL, NULL, NULL, 1, 1, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2022-09-14 01:30:31', '2022-09-16 00:45:46');
 
 -- --------------------------------------------------------
 
@@ -355,6 +355,7 @@ CREATE TABLE `mb_home_menus` (
   `title` varchar(255) NOT NULL,
   `subtitle` varchar(1023) NOT NULL,
   `icon` varchar(255) NOT NULL,
+  `local_drawable_id` varchar(63) DEFAULT NULL,
   `requires_auth` tinyint(1) NOT NULL DEFAULT '1',
   `needs_icon_outline` tinyint(1) NOT NULL DEFAULT '0',
   `uses_circular_icon` tinyint(1) NOT NULL DEFAULT '1',
@@ -408,6 +409,7 @@ CREATE TABLE `mb_transaction_channels` (
   `title` varchar(255) NOT NULL,
   `subtitle` varchar(1023) DEFAULT NULL,
   `icon` varchar(255) DEFAULT NULL,
+  `local_drawable_id` varchar(63) DEFAULT NULL,
   `requires_auth` tinyint(1) NOT NULL DEFAULT '1',
   `needs_icon_outline` tinyint(1) NOT NULL DEFAULT '0',
   `uses_circular_icon` tinyint(1) NOT NULL DEFAULT '1',
@@ -425,8 +427,19 @@ CREATE TABLE `mb_transaction_channels` (
 -- Dumping data for table `mb_transaction_channels`
 --
 
-INSERT INTO `mb_transaction_channels` (`id`, `type`, `service_code`, `terminal_code`, `parent_id`, `title`, `subtitle`, `icon`, `requires_auth`, `needs_icon_outline`, `uses_circular_icon`, `sub_button_text`, `highlight_icons`, `enabled`, `status`, `created_at`, `updated_at`, `version`, `history`) VALUES
-(1, 'PAYMENT', 'BP_UT_001', NULL, NULL, 'Utilities', 'Pay for electricity, water and waste bills', 'mb-transaction-channels/September2022/u7H2q9UO5g5ZEU79pRLi.png', 1, 1, 1, 'Nothing', NULL, 1, 1, '2022-09-15 22:01:16', '2022-09-15 22:01:16', 1, NULL);
+INSERT INTO `mb_transaction_channels` (`id`, `type`, `service_code`, `terminal_code`, `parent_id`, `title`, `subtitle`, `icon`, `local_drawable_id`, `requires_auth`, `needs_icon_outline`, `uses_circular_icon`, `sub_button_text`, `highlight_icons`, `enabled`, `status`, `created_at`, `updated_at`, `version`, `history`) VALUES
+(1, 'PAYMENT', 'BP_UT_001', NULL, NULL, 'Utilities', 'Pay for electricity, water and waste bills', 'mb-transaction-channels/September2022/u7H2q9UO5g5ZEU79pRLi.png', NULL, 1, 1, 1, NULL, NULL, 1, 1, '2022-09-15 22:01:16', '2022-09-16 07:05:55', 1, NULL),
+(2, 'PAYMENT', 'BP_PT_001', NULL, NULL, 'Mobile Top-up', 'Top-up own phone or other\'s phones', 'mb-transaction-channels/September2022/vmXta59dq2B5wO3fWa2J.png', NULL, 1, 1, 1, NULL, NULL, 1, 1, '2022-09-16 00:09:00', '2022-09-16 00:51:43', 1, NULL),
+(3, 'PAYMENT', 'BP_PS_001', NULL, NULL, 'Public Services', 'Pay for taxes or public services', 'mb-transaction-channels/September2022/omUNJzta3Mv0BzUpk1rJ.png', NULL, 1, 1, 1, NULL, NULL, 1, 1, '2022-09-16 00:44:01', '2022-09-16 00:44:01', 1, NULL),
+(4, 'PAYMENT', 'BP_IT_001', NULL, NULL, 'Internet &TV', 'Pay your internet and TV bills', 'mb-transaction-channels/September2022/nsrw6KHE5d8Rv5scKb05.png', NULL, 1, 1, 1, NULL, NULL, 1, 1, '2022-09-16 00:44:49', '2022-09-16 00:44:49', 1, NULL),
+(5, 'PAYMENT', 'BP_RE_001', NULL, NULL, 'Real Estate', 'Pay for property', 'mb-transaction-channels/September2022/y2r83GVVO1HM2RyaBVnP.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:46:25', '2022-09-16 00:46:25', 1, NULL),
+(6, 'PAYMENT', 'BP_IS_001', NULL, NULL, 'Insurance', 'Pay for insurance premiums', 'mb-transaction-channels/September2022/LFRbBv9PxB938ocVSlOV.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:47:18', '2022-09-16 00:47:18', 1, NULL),
+(7, 'PAYMENT', 'BP_FI_001', NULL, NULL, 'Finance & Investment', 'Payment for 3rd party financial services', 'mb-transaction-channels/September2022/g2JoHpp8aFi9mCgAzFx7.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:48:09', '2022-09-16 00:48:09', 1, NULL),
+(8, 'PAYMENT', 'BP_ED_001', NULL, NULL, 'Education', 'Pay for school fees', 'mb-transaction-channels/September2022/jUSADUZgs171vAY0h7UE.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:48:41', '2022-09-16 00:48:41', 1, NULL),
+(9, 'PAYMENT', 'BP_ET_001', NULL, NULL, 'Entertainment', 'Shop for credit for games and apps', 'mb-transaction-channels/September2022/OtoIl4a4hta9XDC7uxNF.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:49:25', '2022-09-16 00:49:25', 1, NULL),
+(10, 'PAYMENT', 'BP_MS_001', NULL, NULL, 'Membership & Subscription', 'Pay for your subscriptions', 'mb-transaction-channels/September2022/GAGYI8nu6vdpUn00H6Nh.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:50:06', '2022-09-16 00:50:06', 1, NULL),
+(11, 'PAYMENT', 'BP_TT_001', NULL, NULL, 'Travel & Tours', 'Pay to travel service-providers', 'mb-transaction-channels/September2022/DM6Qj0dOpnKOYU54sNdt.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:50:39', '2022-09-16 00:50:39', 1, NULL),
+(12, 'PAYMENT', 'BP_CD_001', NULL, NULL, 'Charity & Donation', 'Donate to charitable organizations', 'mb-transaction-channels/September2022/txndljIIfeUoTichQpcX.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:51:22', '2022-09-16 00:51:22', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -520,19 +533,17 @@ CREATE TABLE `menu_items` (
 
 INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
 (1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2022-09-07 18:02:07', '2022-09-07 18:02:07', 'voyager.dashboard', NULL),
-(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 5, '2022-09-07 18:02:07', '2022-09-07 18:02:07', 'voyager.media.index', NULL),
+(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 5, '2022-09-07 18:02:07', '2022-09-16 00:14:39', 'voyager.media.index', NULL),
 (3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 3, '2022-09-07 18:02:07', '2022-09-07 18:02:07', 'voyager.users.index', NULL),
 (4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 2, '2022-09-07 18:02:07', '2022-09-07 18:02:07', 'voyager.roles.index', NULL),
-(5, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 9, '2022-09-07 18:02:07', '2022-09-07 18:02:07', NULL, NULL),
-(6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 10, '2022-09-07 18:02:07', '2022-09-07 18:02:07', 'voyager.menus.index', NULL),
-(7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 11, '2022-09-07 18:02:07', '2022-09-07 18:02:07', 'voyager.database.index', NULL),
-(8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 12, '2022-09-07 18:02:07', '2022-09-07 18:02:07', 'voyager.compass.index', NULL),
-(9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 13, '2022-09-07 18:02:07', '2022-09-07 18:02:07', 'voyager.bread.index', NULL),
-(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 14, '2022-09-07 18:02:07', '2022-09-07 18:02:07', 'voyager.settings.index', NULL),
-(11, 1, 'Categories', '', '_self', 'voyager-categories', NULL, NULL, 8, '2022-09-07 18:05:48', '2022-09-07 18:05:48', 'voyager.categories.index', NULL),
-(12, 1, 'Posts', '', '_self', 'voyager-news', NULL, NULL, 6, '2022-09-07 18:05:48', '2022-09-07 18:05:48', 'voyager.posts.index', NULL),
-(13, 1, 'Pages', '', '_self', 'voyager-file-text', NULL, NULL, 7, '2022-09-07 18:05:48', '2022-09-07 18:05:48', 'voyager.pages.index', NULL),
-(14, 1, 'MB Transaction Channels', '', '_self', NULL, NULL, NULL, 15, '2022-09-14 01:30:31', '2022-09-14 01:30:31', 'voyager.mb-transaction-channels.index', NULL);
+(5, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 9, '2022-09-07 18:02:07', '2022-09-16 00:14:37', NULL, NULL),
+(6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2022-09-07 18:02:07', '2022-09-16 00:14:33', 'voyager.menus.index', NULL),
+(7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2022-09-07 18:02:07', '2022-09-16 00:14:33', 'voyager.database.index', NULL),
+(8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2022-09-07 18:02:07', '2022-09-16 00:14:33', 'voyager.compass.index', NULL),
+(9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2022-09-07 18:02:07', '2022-09-16 00:14:33', 'voyager.bread.index', NULL),
+(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 10, '2022-09-07 18:02:07', '2022-09-16 00:14:37', 'voyager.settings.index', NULL),
+(14, 1, 'MB Transaction Channels', '', '_self', 'voyager-shop', '#000000', 15, 1, '2022-09-14 01:30:31', '2022-09-16 00:15:29', 'voyager.mb-transaction-channels.index', 'null'),
+(15, 1, 'MB Menus', '', '_self', 'voyager-list', '#000000', NULL, 4, '2022-09-16 00:14:29', '2022-09-16 00:14:39', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -1195,7 +1206,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `data_types`
@@ -1225,7 +1236,7 @@ ALTER TABLE `mb_payment_templates`
 -- AUTO_INCREMENT for table `mb_transaction_channels`
 --
 ALTER TABLE `mb_transaction_channels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `mb_transfer_templates`
@@ -1249,7 +1260,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `migrations`

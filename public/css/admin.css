@@ -1,0 +1,29 @@
+.table {
+    color: #111111;
+}
+
+.voyager .table>thead>tr>th {
+    background: #044566;
+    color: #FFFFFF !important;
+}
+
+#dataTable a {
+    color: #ffffff;
+}
+
+.voyager .side-menu.sidebar-inverse {
+    background: #111111 !important;
+}
+
+.voyager .btn.btn-success {
+    background-color: #2b9969;
+}
+
+.panel-body .select2-selection {
+    border: 1px solid #999;
+}
+
+.form-control {
+    border: 1px solid #777;
+    color: #333333;
+}
