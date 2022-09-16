@@ -32,7 +32,7 @@ services:
             SERVICE_TAGS: dev
         volumes:
             - ./docker-compose/cloud/mysql:/docker-entrypoint-initdb.d
-            - mysql-data:/var/lib/mysql
+            # - mysql-data:/var/lib/mysql
         networks:
             - mobilebanking
 
