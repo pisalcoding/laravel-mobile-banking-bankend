@@ -31,8 +31,8 @@ services:
             # MYSQL_USER: ${DB_USERNAME}
             SERVICE_TAGS: dev
         volumes:
-            - ./docker-compose/cloud/mysql:/docker-entrypoint-initdb.d
-            # - mysql-data:/var/lib/mysql
+            - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+            - mysql-data:/var/lib/mysql
         networks:
             - mobilebanking
 
