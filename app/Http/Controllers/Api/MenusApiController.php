@@ -25,7 +25,17 @@ class MenusApiController extends BaseApiController
         );
     }
 
-    function trxChannels(Request $request)
+    function paymentChannels(Request $request)
+    {
+        $data = $this->menusService->trxChannelMenus($request);
+        return $this->jsonResponse(
+            $data,
+            true,
+            "Sucess"
+        );
+    }
+
+    function transferChannels(Request $request)
     {
         $data = $this->menusService->trxChannelMenus($request);
         return $this->jsonResponse(

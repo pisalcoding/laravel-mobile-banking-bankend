@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1_0_0'], function ($router) {
     Route::post('menus/home-menus', [MenusApiController::class, 'homeMenus']);
-    Route::post('menus/trx-channels', [MenusApiController::class, 'trxChannels']);
+    Route::post('menus/payment-channels', [MenusApiController::class, 'trxChannels']);
+    Route::post('menus/transfer-channels', [MenusApiController::class, 'trxChannels']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
