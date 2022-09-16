@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 08, 2022 at 02:42 AM
+-- Generation Time: Sep 16, 2022 at 06:13 AM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.12
 
@@ -13,6 +13,153 @@ SET time_zone = "+00:00";
 --
 -- Database: `mobilebanking`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bank_accounts`
+--
+
+CREATE TABLE `bank_accounts` (
+  `id` int(11) NOT NULL,
+  `account_number` varchar(15) NOT NULL,
+  `customer` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `type` int(11) NOT NULL,
+  `allow_negative` tinyint(1) NOT NULL DEFAULT '1',
+  `allow_debit` tinyint(1) NOT NULL DEFAULT '1',
+  `allow_credit` tinyint(1) NOT NULL DEFAULT '1',
+  `allow_atm` tinyint(1) NOT NULL DEFAULT '1',
+  `allow_card` tinyint(1) NOT NULL DEFAULT '1',
+  `allow_otc` tinyint(1) NOT NULL DEFAULT '1',
+  `currency` varchar(15) NOT NULL,
+  `gross_balance` double NOT NULL DEFAULT '0',
+  `min_balance` double NOT NULL DEFAULT '0',
+  `interest_rate` double NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `version` int(11) NOT NULL DEFAULT '1',
+  `history` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bank_customers`
+--
+
+CREATE TABLE `bank_customers` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `phone` varchar(63) NOT NULL,
+  `selfie` varchar(255) DEFAULT NULL,
+  `id_document` varchar(255) DEFAULT NULL,
+  `id_mrz` varchar(255) DEFAULT NULL,
+  `id_number` varchar(63) NOT NULL,
+  `id_type` int(11) DEFAULT NULL,
+  `gender` enum('FEMALE','MALE','OTHER','') DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `birth_village` int(11) DEFAULT NULL,
+  `current_str_address` varchar(255) NOT NULL,
+  `current_village` int(11) DEFAULT NULL,
+  `workplace_name` varchar(255) DEFAULT NULL,
+  `workplace_str_address` varchar(255) DEFAULT NULL,
+  `workplace_village` int(11) DEFAULT NULL,
+  `occupation` int(11) DEFAULT NULL,
+  `income_primary` int(11) DEFAULT NULL,
+  `income_secondary` int(11) DEFAULT NULL,
+  `income_min_usd` double DEFAULT NULL,
+  `classification` varchar(63) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `kyc_status` enum('FULL','HALF','ONLINE','') DEFAULT NULL,
+  `created_on_platform` enum('OTC','MOBILE') DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `version` int(11) NOT NULL DEFAULT '1',
+  `history` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bank_transactions`
+--
+
+CREATE TABLE `bank_transactions` (
+  `id` int(11) NOT NULL,
+  `trx_code` varchar(63) NOT NULL,
+  `src_account_number` varchar(15) NOT NULL,
+  `dst_account_number` varchar(15) NOT NULL,
+  `amount` double NOT NULL,
+  `currency` varchar(3) NOT NULL,
+  `by_gateway` varchar(11) NOT NULL,
+  `reference` varchar(63) NOT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `merchant` int(11) DEFAULT NULL,
+  `type` varchar(15) NOT NULL,
+  `src_name` int(63) NOT NULL,
+  `platform` enum('OTC','MB','ATM','SMS','INTB','POS') NOT NULL,
+  `by_card` int(11) DEFAULT NULL,
+  `by_template` int(11) DEFAULT NULL,
+  `third_party_info` varchar(1023) NOT NULL COMMENT 'List of key-values pairs',
+  `channel` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1: Success, 2: Pending, 3: Un-authorized,  0: Failed',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cards`
+--
+
+CREATE TABLE `cards` (
+  `id` int(11) NOT NULL,
+  `linked_account` int(11) NOT NULL,
+  `card_name` varchar(255) NOT NULL,
+  `card_number` varchar(63) NOT NULL,
+  `holder_name` int(11) NOT NULL,
+  `network_brand` int(11) NOT NULL,
+  `expiry_year` int(5) NOT NULL,
+  `expiry_month` int(2) NOT NULL,
+  `cvv` varchar(5) NOT NULL,
+  `debit` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1: Debit, 0: Credit',
+  `virtual` tinyint(1) NOT NULL DEFAULT '0',
+  `frozen` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `inputter` int(11) DEFAULT NULL,
+  `authorizer` int(11) DEFAULT NULL,
+  `printed_at` int(11) DEFAULT NULL,
+  `created_on_platform` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `version` int(11) NOT NULL DEFAULT '1',
+  `history` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `card_networks`
+--
+
+CREATE TABLE `card_networks` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `abbreviation` varchar(15) DEFAULT NULL,
+  `square_logo` varchar(255) DEFAULT NULL,
+  `badge_logo` varchar(255) DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `version` int(11) NOT NULL DEFAULT '1',
+  `history` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -119,7 +266,28 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (52, 6, 'status', 'select_dropdown', 'Status', 1, 1, 1, 1, 1, 1, '{\"default\":\"INACTIVE\",\"options\":{\"INACTIVE\":\"INACTIVE\",\"ACTIVE\":\"ACTIVE\"}}', 9),
 (53, 6, 'created_at', 'timestamp', 'Created At', 1, 1, 1, 0, 0, 0, NULL, 10),
 (54, 6, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, NULL, 11),
-(55, 6, 'image', 'image', 'Page Image', 0, 1, 1, 1, 1, 1, NULL, 12);
+(55, 6, 'image', 'image', 'Page Image', 0, 1, 1, 1, 1, 1, NULL, 12),
+(56, 8, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(57, 8, 'service_code', 'text', 'Service Code', 0, 1, 1, 1, 1, 1, '{}', 3),
+(58, 8, 'terminal_code', 'text', 'Terminal Code', 0, 1, 1, 1, 1, 1, '{}', 5),
+(59, 8, 'parent_id', 'text', 'Parent Id', 0, 1, 1, 1, 1, 1, '{}', 6),
+(60, 8, 'title', 'text', 'Title', 1, 1, 1, 1, 1, 1, '{}', 7),
+(61, 8, 'subtitle', 'text', 'Subtitle', 0, 1, 1, 1, 1, 1, '{}', 8),
+(62, 8, 'icon', 'image', 'Icon', 0, 1, 1, 1, 1, 1, '{}', 9),
+(63, 8, 'unavailable_message', 'text', 'Unavailable Message', 0, 1, 1, 1, 1, 1, '{}', 10),
+(64, 8, 'requires_auth', 'checkbox', 'Requires Auth', 1, 1, 1, 1, 1, 1, '{}', 11),
+(65, 8, 'needs_icon_outline', 'checkbox', 'Needs Icon Outline', 1, 1, 1, 1, 1, 1, '{}', 12),
+(66, 8, 'uses_circular_icon', 'checkbox', 'Uses Circular Icon', 1, 1, 1, 1, 1, 1, '{}', 13),
+(67, 8, 'sub_button_text', 'text', 'Sub Button Text', 0, 1, 1, 1, 1, 1, '{}', 14),
+(68, 8, 'highlight_icons', 'multiple_images', 'Highlight Icons', 0, 1, 1, 1, 1, 1, '{}', 15),
+(69, 8, 'enabled', 'checkbox', 'Enabled', 1, 1, 1, 1, 1, 1, '{}', 16),
+(70, 8, 'status', 'checkbox', 'Status', 1, 1, 1, 1, 1, 1, '{}', 17),
+(71, 8, 'created_at', 'timestamp', 'Created At', 1, 1, 1, 1, 0, 1, '{}', 18),
+(72, 8, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 19),
+(73, 8, 'version', 'number', 'Version', 1, 1, 1, 0, 0, 1, '{}', 20),
+(74, 8, 'history', 'text', 'History', 0, 1, 1, 1, 1, 1, '{}', 21),
+(75, 8, 'type', 'select_dropdown', 'Type', 1, 1, 1, 1, 1, 1, '{\"default\":\"TRANSFER\",\"options\":{\"TRANSFER\":\"TRANSFER\",\"PAYMENT\":\"PAYMENT\"}}', 4),
+(76, 8, 'mb_transaction_channel_belongsto_mb_transaction_channel_relationship', 'relationship', 'Parent', 0, 1, 1, 1, 1, 1, '{\"model\":\"\\\\App\\\\Models\\\\MbTransactionChannel\",\"table\":\"mb_transaction_channels\",\"type\":\"belongsTo\",\"column\":\"parent_id\",\"key\":\"id\",\"label\":\"title\",\"pivot_table\":\"bank_accounts\",\"pivot\":\"0\",\"taggable\":\"0\"}', 2);
 
 -- --------------------------------------------------------
 
@@ -155,7 +323,8 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerRoleController', '', 1, 0, NULL, '2022-09-07 18:02:07', '2022-09-07 18:02:07'),
 (4, 'categories', 'categories', 'Category', 'Categories', 'voyager-categories', 'TCG\\Voyager\\Models\\Category', NULL, '', '', 1, 0, NULL, '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
 (5, 'posts', 'posts', 'Post', 'Posts', 'voyager-news', 'TCG\\Voyager\\Models\\Post', 'TCG\\Voyager\\Policies\\PostPolicy', '', '', 1, 0, NULL, '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
-(6, 'pages', 'pages', 'Page', 'Pages', 'voyager-file-text', 'TCG\\Voyager\\Models\\Page', NULL, '', '', 1, 0, NULL, '2022-09-07 18:05:48', '2022-09-07 18:05:48');
+(6, 'pages', 'pages', 'Page', 'Pages', 'voyager-file-text', 'TCG\\Voyager\\Models\\Page', NULL, '', '', 1, 0, NULL, '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
+(8, 'mb_transaction_channels', 'mb-transaction-channels', 'MB Transaction Channel', 'MB Transaction Channels', NULL, 'App\\Models\\MbTransactionChannel', NULL, NULL, NULL, 1, 1, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2022-09-14 01:30:31', '2022-09-15 22:03:58');
 
 -- --------------------------------------------------------
 
@@ -172,6 +341,136 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mb_home_menus`
+--
+
+CREATE TABLE `mb_home_menus` (
+  `id` int(11) NOT NULL,
+  `service_code` varchar(63) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `subtitle` varchar(1023) NOT NULL,
+  `icon` varchar(255) NOT NULL,
+  `requires_auth` tinyint(1) NOT NULL DEFAULT '1',
+  `needs_icon_outline` tinyint(1) NOT NULL DEFAULT '0',
+  `uses_circular_icon` tinyint(1) NOT NULL DEFAULT '1',
+  `sub_button_text` varchar(63) NOT NULL,
+  `highlight_icons` varchar(1023) DEFAULT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'When 0, show but can''t click',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'When 0, don''t show',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `version` int(11) NOT NULL DEFAULT '1',
+  `history` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mb_payment_templates`
+--
+
+CREATE TABLE `mb_payment_templates` (
+  `id` int(11) NOT NULL,
+  `mb_user_id` int(11) NOT NULL,
+  `channel_id` int(11) NOT NULL,
+  `third_party_id` varchar(63) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `other_fields` json DEFAULT NULL,
+  `src_account_number` varchar(63) NOT NULL,
+  `dst_account_number` varchar(63) DEFAULT NULL,
+  `dst_phone` varchar(63) DEFAULT NULL,
+  `amount` double NOT NULL DEFAULT '0',
+  `remark` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `version` int(11) NOT NULL DEFAULT '1',
+  `history` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mb_transaction_channels`
+--
+
+CREATE TABLE `mb_transaction_channels` (
+  `id` int(11) NOT NULL,
+  `type` enum('PAYMENT','TRANSFER') NOT NULL,
+  `service_code` varchar(63) DEFAULT NULL,
+  `terminal_code` varchar(15) DEFAULT NULL COMMENT 'For bill payment, it''s biller_code',
+  `parent_id` int(11) DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `subtitle` varchar(1023) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `requires_auth` tinyint(1) NOT NULL DEFAULT '1',
+  `needs_icon_outline` tinyint(1) NOT NULL DEFAULT '0',
+  `uses_circular_icon` tinyint(1) NOT NULL DEFAULT '1',
+  `sub_button_text` varchar(63) DEFAULT NULL,
+  `highlight_icons` varchar(1023) DEFAULT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'When 0, show but can''t click',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'When 0, don''t show',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `version` int(11) NOT NULL DEFAULT '1',
+  `history` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `mb_transaction_channels`
+--
+
+INSERT INTO `mb_transaction_channels` (`id`, `type`, `service_code`, `terminal_code`, `parent_id`, `title`, `subtitle`, `icon`, `requires_auth`, `needs_icon_outline`, `uses_circular_icon`, `sub_button_text`, `highlight_icons`, `enabled`, `status`, `created_at`, `updated_at`, `version`, `history`) VALUES
+(1, 'PAYMENT', 'BP_UT_001', NULL, NULL, 'Utilities', 'Pay for electricity, water and waste bills', 'mb-transaction-channels/September2022/u7H2q9UO5g5ZEU79pRLi.png', 1, 1, 1, 'Nothing', NULL, 1, 1, '2022-09-15 22:01:16', '2022-09-15 22:01:16', 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mb_transfer_templates`
+--
+
+CREATE TABLE `mb_transfer_templates` (
+  `id` int(11) NOT NULL,
+  `mb_user_id` int(11) NOT NULL,
+  `channel_id` int(11) NOT NULL,
+  `third_party_id` varchar(63) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `other_fields` json DEFAULT NULL,
+  `src_account_number` varchar(63) NOT NULL,
+  `dst_account_number` varchar(63) DEFAULT NULL,
+  `dst_phone` varchar(63) DEFAULT NULL,
+  `amount` double NOT NULL DEFAULT '0',
+  `remark` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `version` int(11) NOT NULL DEFAULT '1',
+  `history` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mb_users`
+--
+
+CREATE TABLE `mb_users` (
+  `id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `default_account` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `profile_picture` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `version` int(11) NOT NULL DEFAULT '1',
+  `history` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -232,7 +531,8 @@ INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class
 (10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 14, '2022-09-07 18:02:07', '2022-09-07 18:02:07', 'voyager.settings.index', NULL),
 (11, 1, 'Categories', '', '_self', 'voyager-categories', NULL, NULL, 8, '2022-09-07 18:05:48', '2022-09-07 18:05:48', 'voyager.categories.index', NULL),
 (12, 1, 'Posts', '', '_self', 'voyager-news', NULL, NULL, 6, '2022-09-07 18:05:48', '2022-09-07 18:05:48', 'voyager.posts.index', NULL),
-(13, 1, 'Pages', '', '_self', 'voyager-file-text', NULL, NULL, 7, '2022-09-07 18:05:48', '2022-09-07 18:05:48', 'voyager.pages.index', NULL);
+(13, 1, 'Pages', '', '_self', 'voyager-file-text', NULL, NULL, 7, '2022-09-07 18:05:48', '2022-09-07 18:05:48', 'voyager.pages.index', NULL),
+(14, 1, 'MB Transaction Channels', '', '_self', NULL, NULL, NULL, 15, '2022-09-14 01:30:31', '2022-09-14 01:30:31', 'voyager.mb-transaction-channels.index', NULL);
 
 -- --------------------------------------------------------
 
@@ -378,7 +678,12 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (37, 'read_pages', 'pages', '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
 (38, 'edit_pages', 'pages', '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
 (39, 'add_pages', 'pages', '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
-(40, 'delete_pages', 'pages', '2022-09-07 18:05:48', '2022-09-07 18:05:48');
+(40, 'delete_pages', 'pages', '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
+(41, 'browse_mb_transaction_channels', 'mb_transaction_channels', '2022-09-14 01:30:31', '2022-09-14 01:30:31'),
+(42, 'read_mb_transaction_channels', 'mb_transaction_channels', '2022-09-14 01:30:31', '2022-09-14 01:30:31'),
+(43, 'edit_mb_transaction_channels', 'mb_transaction_channels', '2022-09-14 01:30:31', '2022-09-14 01:30:31'),
+(44, 'add_mb_transaction_channels', 'mb_transaction_channels', '2022-09-14 01:30:31', '2022-09-14 01:30:31'),
+(45, 'delete_mb_transaction_channels', 'mb_transaction_channels', '2022-09-14 01:30:31', '2022-09-14 01:30:31');
 
 -- --------------------------------------------------------
 
@@ -435,7 +740,12 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (37, 1),
 (38, 1),
 (39, 1),
-(40, 1);
+(40, 1),
+(41, 1),
+(42, 1),
+(43, 1),
+(44, 1),
+(45, 1);
 
 -- --------------------------------------------------------
 
@@ -623,7 +933,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `email_verified_at`, `password`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Admin', 'admin@admin.com', 'users/default.png', NULL, '$2y$10$I701kcWvGzLtJiRvupHAcOLsiNizKK1bl7VFotV0J.M3KnXukY2WO', '9g186ZuBaIdg8DHfyxlk02Ff98AXaEtqopuvirKNk9IyWxFEsMOBqLrx29yV', NULL, '2022-09-07 18:05:48', '2022-09-07 18:05:48');
+(1, 1, 'Admin', 'admin@admin.com', 'users/September2022/krz8N3vxMTdLtj76gKKi.jpg', NULL, '$2y$10$I701kcWvGzLtJiRvupHAcOLsiNizKK1bl7VFotV0J.M3KnXukY2WO', '9g186ZuBaIdg8DHfyxlk02Ff98AXaEtqopuvirKNk9IyWxFEsMOBqLrx29yV', '{\"locale\":\"en\"}', '2022-09-07 18:05:48', '2022-09-14 20:21:46');
 
 -- --------------------------------------------------------
 
@@ -639,6 +949,45 @@ CREATE TABLE `user_roles` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `bank_accounts`
+--
+ALTER TABLE `bank_accounts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `account_number` (`account_number`),
+  ADD KEY `customer` (`customer`);
+
+--
+-- Indexes for table `bank_customers`
+--
+ALTER TABLE `bank_customers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `phone` (`phone`),
+  ADD UNIQUE KEY `id_number` (`id_number`),
+  ADD KEY `phone_2` (`phone`),
+  ADD KEY `id_number_2` (`id_number`);
+
+--
+-- Indexes for table `bank_transactions`
+--
+ALTER TABLE `bank_transactions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `trx_code` (`trx_code`),
+  ADD KEY `reference` (`reference`);
+
+--
+-- Indexes for table `cards`
+--
+ALTER TABLE `cards`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `linked_account` (`linked_account`);
+
+--
+-- Indexes for table `card_networks`
+--
+ALTER TABLE `card_networks`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `categories`
@@ -669,6 +1018,38 @@ ALTER TABLE `data_types`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `mb_home_menus`
+--
+ALTER TABLE `mb_home_menus`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mb_payment_templates`
+--
+ALTER TABLE `mb_payment_templates`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mb_transaction_channels`
+--
+ALTER TABLE `mb_transaction_channels`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mb_transfer_templates`
+--
+ALTER TABLE `mb_transfer_templates`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mb_users`
+--
+ALTER TABLE `mb_users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `default_account` (`default_account`),
+  ADD KEY `customer_id` (`customer_id`);
 
 --
 -- Indexes for table `menus`
@@ -775,6 +1156,36 @@ ALTER TABLE `user_roles`
 --
 
 --
+-- AUTO_INCREMENT for table `bank_accounts`
+--
+ALTER TABLE `bank_accounts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bank_customers`
+--
+ALTER TABLE `bank_customers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bank_transactions`
+--
+ALTER TABLE `bank_transactions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `cards`
+--
+ALTER TABLE `cards`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `card_networks`
+--
+ALTER TABLE `card_networks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
@@ -784,19 +1195,49 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mb_home_menus`
+--
+ALTER TABLE `mb_home_menus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mb_payment_templates`
+--
+ALTER TABLE `mb_payment_templates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mb_transaction_channels`
+--
+ALTER TABLE `mb_transaction_channels`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `mb_transfer_templates`
+--
+ALTER TABLE `mb_transfer_templates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mb_users`
+--
+ALTER TABLE `mb_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `menus`
@@ -808,7 +1249,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -826,7 +1267,7 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`

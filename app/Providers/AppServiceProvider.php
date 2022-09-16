@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Contracts\IMenusService;
+use App\Services\MenusService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->register(RepositoriesServiceProvider::class);
+        $this->registerServices();
+    }
+
+    private function registerServices()
+    {
+        $this->app->bind(IMenusService::class, MenusService::class);
     }
 
     /**
