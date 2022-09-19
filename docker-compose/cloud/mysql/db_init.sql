@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 16, 2022 at 07:56 AM
+-- Generation Time: Sep 19, 2022 at 07:27 AM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.12
 
@@ -269,25 +269,25 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (55, 6, 'image', 'image', 'Page Image', 0, 1, 1, 1, 1, 1, NULL, 12),
 (56, 8, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
 (57, 8, 'service_code', 'text', 'Service Code', 0, 1, 1, 1, 1, 1, '{}', 3),
-(58, 8, 'terminal_code', 'text', 'Terminal Code', 0, 1, 1, 1, 1, 1, '{}', 5),
+(58, 8, 'terminal_code', 'text', 'Terminal Code', 0, 0, 1, 1, 1, 1, '{}', 5),
 (59, 8, 'parent_id', 'text', 'Parent Id', 0, 1, 1, 1, 1, 1, '{}', 6),
 (60, 8, 'title', 'text', 'Title', 1, 1, 1, 1, 1, 1, '{}', 7),
 (61, 8, 'subtitle', 'text', 'Subtitle', 0, 1, 1, 1, 1, 1, '{}', 8),
 (62, 8, 'icon', 'image', 'Icon', 0, 1, 1, 1, 1, 1, '{}', 9),
-(64, 8, 'requires_auth', 'checkbox', 'Requires Auth', 1, 1, 1, 1, 0, 1, '{\"checked\":true}', 11),
-(65, 8, 'needs_icon_outline', 'checkbox', 'Needs Icon Outline', 1, 1, 1, 1, 0, 1, '{\"checked\":true}', 12),
-(66, 8, 'uses_circular_icon', 'checkbox', 'Uses Circular Icon', 1, 1, 1, 1, 0, 1, '{\"checked\":true}', 13),
-(67, 8, 'sub_button_text', 'text', 'Sub Button Text', 0, 1, 1, 1, 1, 1, '{}', 14),
-(68, 8, 'highlight_icons', 'multiple_images', 'Highlight Icons', 0, 1, 1, 1, 0, 1, '{}', 15),
+(64, 8, 'requires_auth', 'checkbox', 'Requires Auth', 1, 0, 1, 1, 0, 1, '{\"checked\":true}', 11),
+(65, 8, 'needs_icon_outline', 'checkbox', 'Needs Icon Outline', 1, 0, 1, 1, 0, 1, '{\"checked\":true}', 12),
+(66, 8, 'uses_circular_icon', 'checkbox', 'Uses Circular Icon', 1, 0, 1, 1, 0, 1, '{\"checked\":true}', 13),
+(67, 8, 'sub_button_text', 'text', 'Sub Button Text', 0, 0, 1, 1, 1, 1, '{}', 14),
+(68, 8, 'highlight_icons', 'multiple_images', 'Highlight Icons', 0, 0, 1, 1, 0, 1, '{}', 15),
 (69, 8, 'enabled', 'checkbox', 'Enabled', 1, 1, 1, 1, 0, 1, '{\"checked\":true}', 16),
-(70, 8, 'status', 'checkbox', 'Status', 1, 1, 1, 1, 0, 1, '{\"checked\":true}', 17),
+(70, 8, 'status', 'checkbox', 'Status', 1, 0, 1, 1, 0, 1, '{\"checked\":true}', 17),
 (71, 8, 'created_at', 'timestamp', 'Created At', 1, 1, 1, 1, 0, 1, '{}', 18),
 (72, 8, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 19),
 (73, 8, 'version', 'number', 'Version', 1, 1, 1, 0, 0, 1, '{}', 20),
-(74, 8, 'history', 'text', 'History', 0, 1, 1, 1, 0, 1, '{}', 21),
-(75, 8, 'type', 'select_dropdown', 'Type', 1, 1, 1, 1, 1, 1, '{\"default\":\"PAYMENT\",\"options\":{\"TRANSFER\":\"TRANSFER\",\"PAYMENT\":\"PAYMENT\"}}', 4),
+(74, 8, 'history', 'text', 'History', 0, 0, 1, 1, 0, 1, '{}', 21),
+(75, 8, 'type', 'select_dropdown', 'Type', 1, 1, 1, 1, 1, 1, '{\"default\":\"PAYMENT\",\"options\":{\"TRANSFER\":\"TRANSFER\",\"PAYMENT\":\"PAYMENT\",\"NEW_ACCOUNT\":\"NEW_ACCOUNT\",\"LOANS\":\"LOANS\"}}', 4),
 (76, 8, 'mb_transaction_channel_belongsto_mb_transaction_channel_relationship', 'relationship', 'Parent', 0, 1, 1, 1, 1, 1, '{\"model\":\"\\\\App\\\\Models\\\\MbTransactionChannel\",\"table\":\"mb_transaction_channels\",\"type\":\"belongsTo\",\"column\":\"parent_id\",\"key\":\"id\",\"label\":\"title\",\"pivot_table\":\"bank_accounts\",\"pivot\":\"0\",\"taggable\":\"0\"}', 2),
-(77, 8, 'local_drawable_id', 'text', 'Local Drawable Id', 0, 1, 1, 1, 1, 1, '{}', 9);
+(77, 8, 'local_drawable_id', 'text', 'Local Drawable Id', 0, 0, 1, 1, 1, 1, '{}', 9);
 
 -- --------------------------------------------------------
 
@@ -324,7 +324,7 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (4, 'categories', 'categories', 'Category', 'Categories', 'voyager-categories', 'TCG\\Voyager\\Models\\Category', NULL, '', '', 1, 0, NULL, '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
 (5, 'posts', 'posts', 'Post', 'Posts', 'voyager-news', 'TCG\\Voyager\\Models\\Post', 'TCG\\Voyager\\Policies\\PostPolicy', '', '', 1, 0, NULL, '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
 (6, 'pages', 'pages', 'Page', 'Pages', 'voyager-file-text', 'TCG\\Voyager\\Models\\Page', NULL, '', '', 1, 0, NULL, '2022-09-07 18:05:48', '2022-09-07 18:05:48'),
-(8, 'mb_transaction_channels', 'mb-transaction-channels', 'MB Transaction Channel', 'MB Transaction Channels', 'voyager-shop', 'App\\Models\\MbTransactionChannel', NULL, NULL, NULL, 1, 1, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2022-09-14 01:30:31', '2022-09-16 00:45:46');
+(8, 'mb_transaction_channels', 'mb-transaction-channels', 'MB Transaction Channel', 'MB Transaction Channels', 'voyager-shop', 'App\\Models\\MbTransactionChannel', NULL, NULL, NULL, 1, 1, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2022-09-14 01:30:31', '2022-09-19 00:05:38');
 
 -- --------------------------------------------------------
 
@@ -402,7 +402,7 @@ CREATE TABLE `mb_payment_templates` (
 
 CREATE TABLE `mb_transaction_channels` (
   `id` int(11) NOT NULL,
-  `type` enum('PAYMENT','TRANSFER') NOT NULL,
+  `type` enum('PAYMENT','TRANSFER','NEW_ACCOUNT','LOANS') NOT NULL,
   `service_code` varchar(63) DEFAULT NULL,
   `terminal_code` varchar(15) DEFAULT NULL COMMENT 'For bill payment, it''s biller_code',
   `parent_id` int(11) DEFAULT NULL,
@@ -439,7 +439,24 @@ INSERT INTO `mb_transaction_channels` (`id`, `type`, `service_code`, `terminal_c
 (9, 'PAYMENT', 'BP_ET_001', NULL, NULL, 'Entertainment', 'Shop for credit for games and apps', 'mb-transaction-channels/September2022/OtoIl4a4hta9XDC7uxNF.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:49:25', '2022-09-16 00:49:25', 1, NULL),
 (10, 'PAYMENT', 'BP_MS_001', NULL, NULL, 'Membership & Subscription', 'Pay for your subscriptions', 'mb-transaction-channels/September2022/GAGYI8nu6vdpUn00H6Nh.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:50:06', '2022-09-16 00:50:06', 1, NULL),
 (11, 'PAYMENT', 'BP_TT_001', NULL, NULL, 'Travel & Tours', 'Pay to travel service-providers', 'mb-transaction-channels/September2022/DM6Qj0dOpnKOYU54sNdt.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:50:39', '2022-09-16 00:50:39', 1, NULL),
-(12, 'PAYMENT', 'BP_CD_001', NULL, NULL, 'Charity & Donation', 'Donate to charitable organizations', 'mb-transaction-channels/September2022/txndljIIfeUoTichQpcX.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:51:22', '2022-09-16 00:51:22', 1, NULL);
+(12, 'PAYMENT', 'BP_CD_001', NULL, NULL, 'Charity & Donation', 'Donate to charitable organizations', 'mb-transaction-channels/September2022/txndljIIfeUoTichQpcX.png', NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-16 00:51:22', '2022-09-16 00:51:22', 1, NULL),
+(13, 'TRANSFER', 'TF_TP_001', NULL, NULL, 'Choose from template', 'Transfer to friends from your templates list', NULL, NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-18 23:44:18', '2022-09-18 23:44:18', 1, NULL),
+(14, 'TRANSFER', 'TF_OWN_001', NULL, NULL, 'Transfer to own ABA account', 'Make a transfer to your own account', NULL, NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-18 23:45:00', '2022-09-18 23:46:25', 1, NULL),
+(15, 'TRANSFER', 'TF_OTH_001', NULL, NULL, 'Transfer to other ABA account', 'Transfer money to other ABA customers', NULL, NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-18 23:46:16', '2022-09-18 23:46:16', 1, NULL),
+(16, 'TRANSFER', 'TF_ATM_001', NULL, NULL, 'Send money to ABA ATM\'s', 'Make cardless cash withdrawal at any ABA ATM', NULL, NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-18 23:47:03', '2022-09-18 23:47:03', 1, NULL),
+(17, 'TRANSFER', 'TF_LOC_001', NULL, NULL, 'Transfer to Local Banks & Wallets', 'Make transfers to banks or wallets in Cambodia', NULL, NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-18 23:48:32', '2022-09-18 23:48:32', 1, NULL),
+(18, 'TRANSFER', 'TF_ITT_001', NULL, NULL, 'International Transfers', 'Send money abroad via various channels', NULL, NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-18 23:49:37', '2022-09-18 23:49:37', 1, NULL),
+(19, 'TRANSFER', 'TF_CAR_001', NULL, NULL, 'Transfer to cards', 'Transfer money to other bank card users', NULL, NULL, 1, 0, 1, NULL, '[\"mb-transaction-channels\\/September2022\\/Ux8GOWmwjVF4DIvJJwh5.png\",\"mb-transaction-channels\\/September2022\\/uGWWFISiBuoIKgAjutc7.png\",\"mb-transaction-channels\\/September2022\\/2zDRYaFYUH8ARywnzW8H.png\"]', 1, 1, '2022-09-18 23:50:00', '2022-09-18 23:51:03', 1, NULL),
+(20, 'TRANSFER', 'TF_LOC_BK_001', NULL, 17, 'Bakong - Send to Local Banks', 'Transfer to any bank in the Bakong network', NULL, NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-18 23:56:40', '2022-09-18 23:56:40', 1, NULL),
+(21, 'TRANSFER', 'TF_LOC_BK_002', NULL, 17, 'Bakong - Send to Wallet', 'Transfer money to any Bakong account', NULL, NULL, 1, 0, 1, NULL, NULL, 1, 1, '2022-09-18 23:57:35', '2022-09-18 23:57:35', 1, NULL),
+(22, 'NEW_ACCOUNT', 'AO_JUA_001', NULL, NULL, 'Junior Account', 'Junior Account is a basic joint savings account designed for kids to help them understand the value of money and learn how to save. WIth this feature parents can always stay informed on their financial activities.', NULL, NULL, 1, 0, 1, 'CREATE ACCOUNT', NULL, 1, 1, '2022-09-19 00:09:13', '2022-09-19 00:09:13', 1, NULL),
+(23, 'NEW_ACCOUNT', 'AO_PRE_001', NULL, NULL, 'Premium Account Number', 'Create a new ABA account with your favorite number that easy to remember. It can contain a date of birth, vehicle plate or any other special number that important for you.', NULL, NULL, 1, 0, 1, 'EXPLORE MORE', NULL, 1, 1, '2022-09-19 00:10:35', '2022-09-19 00:10:35', 1, NULL),
+(24, 'NEW_ACCOUNT', 'AO_MTR_001', NULL, NULL, 'Mobile Trading Account', 'Open Mobile Trading Account that can be partnered companies. Find partnered companies list at: Payments > Finance & Investment.', NULL, NULL, 1, 0, 1, 'OPEN NEW ACCOUNT', NULL, 1, 1, '2022-09-19 00:12:04', '2022-09-19 00:12:04', 1, NULL),
+(25, 'NEW_ACCOUNT', 'AO_MFD_001', NULL, NULL, 'Mobile Fixed Deposit', 'Choose the term deposit and get high return on your savings with our attractive interest rates in both USD and KHR currencies.', NULL, NULL, 1, 0, 1, 'MAKE NEW DEPOSIT', NULL, 1, 1, '2022-09-19 00:13:03', '2022-09-19 00:13:03', 1, NULL),
+(26, 'NEW_ACCOUNT', 'AO_MBS_001', NULL, NULL, 'Mobile Savings Account', 'Our post popular bank account that helps you reach saving goals with competitive interest rate and other great features.', NULL, NULL, 1, 0, 1, 'OPEN NEW ACCOUNT', NULL, 1, 1, '2022-09-19 00:14:19', '2022-09-19 00:14:19', 1, NULL),
+(27, 'NEW_ACCOUNT', 'AO_MBF_001', NULL, NULL, 'Mobile Flexi Account', 'WIth ABA Flexi Account in KHR you can deposit or/and withdraw funds any time and keep earning high interest on your ongoing balance.', NULL, NULL, 1, 0, 1, 'OPEN NEW ACCOUNT', NULL, 1, 1, '2022-09-19 00:15:30', '2022-09-19 00:15:30', 1, NULL),
+(28, 'LOANS', 'LO_INS_001', NULL, NULL, 'Instant Loan', 'Request Instant Loan to borrow cash of up to 90% of your Fixed Deposit amount and make repayment anytime with no penalty for early loan repayment.', NULL, NULL, 1, 0, 1, 'GET NEW LOAN', NULL, 1, 1, '2022-09-19 00:17:08', '2022-09-19 00:17:08', 1, NULL),
+(29, 'LOANS', 'LO_SLR_001', NULL, NULL, 'Salary Loan', 'Request Salary Loan to borrow cash up to 50% of your salary and make repayment monthly up to 12 months.', NULL, NULL, 1, 0, 1, 'GET NET LOAN', NULL, 1, 1, '2022-09-19 00:18:12', '2022-09-19 00:18:12', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -1236,7 +1253,7 @@ ALTER TABLE `mb_payment_templates`
 -- AUTO_INCREMENT for table `mb_transaction_channels`
 --
 ALTER TABLE `mb_transaction_channels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `mb_transfer_templates`

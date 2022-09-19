@@ -20,50 +20,40 @@ class ChannelMenusRepository extends BaseEloquentRepository implements IChannelM
 
     function paymentChannelMenus()
     {
-        try {
-            $cache = Redis::get("ChannelMenusRepository.paymentChannelMenus");
-            if ($cache) {
-                return json_decode($cache);
-            }
-
-            $result = $this->model
-                ->where('type', MbTransactionChannel::MENU_PAYMENT)
-                ->select([
-                    'id',
-                    'service_code as sco',
-                    'terminal_code as tco',
-                    'title as ttl',
-                    'subtitle as stt',
-                    'icon as ico',
-                    'local_drawable_id as loc',
-                    'requires_auth as aut',
-                    'needs_icon_outline as out',
-                    'uses_circular_icon as cir',
-                    'sub_button_text as sbt',
-                    'highlight_icons as ics',
-                    'enabled as ena',
-                    'status as sta',
-                    'version as ver'
-                ])
-                ->get();
-            Redis::set("ChannelMenusRepository.paymentChannelMenus", $result);
-            return $result;
-        } catch (Exception $e) {
-            Log::error("ChannelMenusRepository.paymentChannelMenus:", ['exception' => $e]);
-            return null;
-        }
+        return $this->getAndCacheMenus(MbTransactionChannel::MENU_PAYMENT, "ChannelMenusRepository.paymentChannelMenus");
     }
 
     function transferChannelMenus()
     {
+        return $this->getAndCacheMenus(MbTransactionChannel::MENU_TRANSFER, "ChannelMenusRepository.transferChannelMenus");
+    }
+
+    function newAccountMenus()
+    {
+        return $this->getAndCacheMenus(MbTransactionChannel::MENU_NEW_ACCOUNT, "ChannelMenusRepository.newAccountMenus");
+    }
+
+    function loanMenus()
+    {
+        return $this->getAndCacheMenus(MbTransactionChannel::MENU_LOANS, "ChannelMenusRepository.loanMenus");
+    }
+
+    /**
+     * Get menus:
+     * If cached, return cached.
+     * If not cached, fetch and save cache.
+     */
+    private function getAndCacheMenus(string $type, string $cacheKey)
+    {
         try {
-            $cache = Redis::get("ChannelMenusRepository.transferChannelMenus");
+            $cache = Redis::get($cacheKey);
             if ($cache) {
                 return json_decode($cache);
             }
 
             $result = $this->model
-                ->where('type', MbTransactionChannel::MENU_TRANSFER)
+                ->where('type', $type)
+                ->where('status', 1)
                 ->select([
                     'id',
                     'service_code as sco',
@@ -82,10 +72,10 @@ class ChannelMenusRepository extends BaseEloquentRepository implements IChannelM
                     'version as ver'
                 ])
                 ->get();
-            Redis::set("ChannelMenusRepository.transferChannelMenus", $result);
+            Redis::set($cacheKey, $result);
             return $result;
         } catch (Exception $e) {
-            Log::error("ChannelMenusRepository.transferChannelMenus:", ['exception' => $e]);
+            Log::error("ChannelMenusRepository.getAndCacheMenus:$cacheKey", ['exception' => $e]);
             return null;
         }
     }

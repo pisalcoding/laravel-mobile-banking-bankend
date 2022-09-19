@@ -9,4 +9,6 @@ interface IMenusService
     function homeMenus(Request $request);
     function paymentChannelMenus(Request $request);
     function transferChannelMenus(Request $request);
+    function newAccountMenus(Request $request);
+    function loanMenus(Request $request);
 }

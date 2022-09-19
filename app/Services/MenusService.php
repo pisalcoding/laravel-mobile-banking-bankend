@@ -32,4 +32,14 @@ class MenusService implements IMenusService
     {
         return $this->trxChannels->transferChannelMenus();
     }
+
+    function newAccountMenus(Request $request)
+    {
+        return $this->trxChannels->transferChannelMenus();
+    }
+    
+    function loanMenus(Request $request)
+    {
+        return $this->trxChannels->transferChannelMenus();
+    }
 }

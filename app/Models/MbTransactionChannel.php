@@ -13,4 +13,6 @@ class MbTransactionChannel extends Model
 
     const MENU_PAYMENT = "PAYMENT";
     const MENU_TRANSFER = "TRANSFER";
+    const MENU_NEW_ACCOUNT = "NEW_ACCOUNT";
+    const MENU_LOANS = "LOANS";
 }

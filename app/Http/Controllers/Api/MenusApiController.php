@@ -44,4 +44,24 @@ class MenusApiController extends BaseApiController
             "Sucess"
         );
     }
+
+    function newAccounts(Request $request)
+    {
+        $data = $this->menusService->newAccountMenus($request);
+        return $this->jsonResponse(
+            $data,
+            true,
+            "Sucess"
+        );
+    }
+
+    function loans(Request $request)
+    {
+        $data = $this->menusService->loanMenus($request);
+        return $this->jsonResponse(
+            $data,
+            true,
+            "Sucess"
+        );
+    }
 }
