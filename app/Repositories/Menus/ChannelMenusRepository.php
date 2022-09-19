@@ -57,7 +57,7 @@ class ChannelMenusRepository extends BaseEloquentRepository implements IChannelM
     function transferChannelMenus()
     {
         try {
-            $cache = Redis::get("ChannelMenusRepository.paymentChannelMenus");
+            $cache = Redis::get("ChannelMenusRepository.transferChannelMenus");
             if ($cache) {
                 return json_decode($cache);
             }
@@ -82,10 +82,10 @@ class ChannelMenusRepository extends BaseEloquentRepository implements IChannelM
                     'version as ver'
                 ])
                 ->get();
-            Redis::set("ChannelMenusRepository.paymentChannelMenus", $result);
+            Redis::set("ChannelMenusRepository.transferChannelMenus", $result);
             return $result;
         } catch (Exception $e) {
-            Log::error("ChannelMenusRepository.paymentChannelMenus:", ['exception' => $e]);
+            Log::error("ChannelMenusRepository.transferChannelMenus:", ['exception' => $e]);
             return null;
         }
     }
