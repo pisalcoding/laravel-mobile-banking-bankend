@@ -8,6 +8,7 @@ use App\Repositories\Menus\ChannelMenusRepository;
 use App\Repositories\Menus\HomeMenusRepository;
 use App\Repository\Eloquent\BaseEloquentRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\Eloquent\IEloquentRepository;
 
 class RepositoriesServiceProvider extends ServiceProvider
 {

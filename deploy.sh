@@ -8,9 +8,13 @@ git pull
 # cp .env.example .env
 docker compose down app
 docker volume rm laravel-mobile-banking-bankend_mysql-data
-docker compose build app
+docker compose -f docker-compose.yml build app
 docker compose up app -d
 docker compose exec app php artisan storage:link || true
+
+# If you wanna clear Redis cache, run this:
+# docker compose exec -it redis redis-cli FLUSHALL
+
 # docker compose exec app rm -rf vendor composer.lock
 # docker compose exec app composer install
 # docker compose exec app php artisan key:generate

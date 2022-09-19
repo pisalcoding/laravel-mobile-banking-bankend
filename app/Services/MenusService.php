@@ -23,8 +23,13 @@ class MenusService implements IMenusService
         return $this->homeMenus->all();
     }
 
-    function trxChannelMenus(Request $request)
+    function paymentChannelMenus(Request $request)
     {
-        return $this->trxChannels->all();
+        return $this->trxChannels->paymentChannelMenus();
+    }
+
+    function transferChannelMenus(Request $request)
+    {
+        return $this->trxChannels->transferChannelMenus();
     }
 }

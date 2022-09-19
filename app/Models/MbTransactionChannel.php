@@ -11,4 +11,6 @@ class MbTransactionChannel extends Model
 
     protected $hidden = ["type", "parent_id", "created_at", "updated_at", "history"];
 
+    const MENU_PAYMENT = "PAYMENT";
+    const MENU_TRANSFER = "TRANSFER";
 }

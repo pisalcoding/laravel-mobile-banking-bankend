@@ -27,7 +27,7 @@ class MenusApiController extends BaseApiController
 
     function paymentChannels(Request $request)
     {
-        $data = $this->menusService->trxChannelMenus($request);
+        $data = $this->menusService->paymentChannelMenus($request);
         return $this->jsonResponse(
             $data,
             true,
@@ -37,7 +37,7 @@ class MenusApiController extends BaseApiController
 
     function transferChannels(Request $request)
     {
-        $data = $this->menusService->trxChannelMenus($request);
+        $data = $this->menusService->transferChannelMenus($request);
         return $this->jsonResponse(
             $data,
             true,

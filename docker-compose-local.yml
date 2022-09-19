@@ -49,11 +49,13 @@ services:
         networks:
             - mobilebanking
 
-    adminer:
-        image: adminer
-        restart: always
+    redis:
+        image: redis:7.0.4
+        container_name: app_redis
         ports:
-        - 8080:8080
+            - "6382:6379"
+        networks:
+            - mobilebanking
 networks:
     mobilebanking:
         driver: bridge
