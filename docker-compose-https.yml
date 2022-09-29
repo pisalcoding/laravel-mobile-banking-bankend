@@ -10,6 +10,7 @@ services:
         depends_on:
             - db
             - nginx
+            - redis
         image: mobilebanking
         container_name: mobilebanking-app
         restart: unless-stopped

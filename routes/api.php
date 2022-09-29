@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'v1_0_0'], function ($router) {
+Route::group(['prefix' => 'v1_0_0', 'middleware' => ['crypt']], function ($router) {
     Route::post('menus/home-menus', [MenusApiController::class, 'homeMenus']);
     Route::post('menus/payment-channels', [MenusApiController::class, 'paymentChannels']);
     Route::post('menus/transfer-channels', [MenusApiController::class, 'transferChannels']);
