@@ -53,7 +53,7 @@ WORKDIR /var/www
 COPY composer.json ./
 RUN composer install --no-scripts
 
-COPY .env.example .env
+# COPY .env.example .env
 RUN php artisan key:generate || true
 
 # Setup storage & permissions
