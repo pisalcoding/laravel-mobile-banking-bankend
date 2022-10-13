@@ -56,6 +56,7 @@ class ChannelMenusRepository extends BaseEloquentRepository implements IChannelM
                 ->where('status', 1)
                 ->select([
                     'id',
+                    'type as typ',
                     'service_code as sco',
                     'terminal_code as tco',
                     'title as ttl',
